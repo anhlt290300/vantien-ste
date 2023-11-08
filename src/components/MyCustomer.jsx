@@ -50,7 +50,7 @@ const MyCustomer = () => {
           </div>
         </div>
         {/* tablet */}
-        <div className=" py-6 w-full desktop:hidden tablet:block hidden">
+        <div className=" py-6 w-full desktop:hidden tablet:block hidden pt-6">
           <Swiper
             className="z-[999] text-black w-full"
             spaceBetween={50}

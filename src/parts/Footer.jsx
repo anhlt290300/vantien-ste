@@ -27,8 +27,8 @@ const Footer = () => {
                 }}
                 className={
                   open
-                    ? " desktop-L:text-2xl desktop:text-xl font-semibold flex items-center desktop:cursor-default cursor-pointer desktop:p-0 p-4 bg-gray-primary group/seemore active"
-                    : " desktop-L:text-2xl desktop:text-xl font-semibold flex items-center desktop:cursor-default cursor-pointer desktop:p-0 p-4 group/seemore"
+                    ? " desktop-L:text-2xl tablet:text-xl font-semibold flex items-center desktop:cursor-default cursor-pointer desktop:p-0 p-4 bg-gray-primary group/seemore active"
+                    : " desktop-L:text-2xl tablet:text-xl font-semibold flex items-center desktop:cursor-default cursor-pointer desktop:p-0 p-4 group/seemore"
                 }
               >
                 Xem thêm trong trang chủ
@@ -84,7 +84,7 @@ const Footer = () => {
                   className="max-h-[10rem]"
                 />
               </a>
-              <div className="w-fit grid grid-cols-4 tablet:gap-6 gap-4 desktop-L:ml-24 tablet:ml-8 m-auto tablet:mt-0 mt-4">
+              <div className="w-fit h-full grid grid-cols-4 tablet:gap-6 gap-4 desktop-L:ml-24 tablet:ml-8 m-auto tablet:mt-0 mt-4 items-center">
                 <a
                   href="/"
                   className="desktop-L:w-16 desktop-L:h-16 w-12 h-12 border border-black-primary flex items-center justify-center hover:bg-yellow-second"

@@ -22,7 +22,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="w-screen h-fit">
+    <header className="w-screen h-fit desktop:block hidden">
       <div className=" w-full py-4 flex justify-between items-center text-black-primary">
         <div className="w-fit h-fit px-8">
           <a href="/">
@@ -56,11 +56,11 @@ const Header = () => {
       <div
         className={
           active
-            ? "flex justify-center items-center fixed bottom-full translate-y-full left-0 w-screen border-b-4 border-black-primary bg-white-primary transition-all duration-300 ease-in-out z-[9999]"
-            : "flex justify-center items-center relative w-full border-b-4 border-black-primary"
+            ? "flex desktop-L:justify-center items-center fixed bottom-full translate-y-full left-0 w-screen border-b-4 border-black-primary bg-white-primary transition-all duration-300 ease-in-out z-[9999]"
+            : "flex desktop-L:justify-center desktop:justify-start items-center relative w-full border-b-4 border-black-primary"
         }
       >
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-4 desktop-L:gap-8 gap-4">
           {nav.map((item, index) => {
             return (
               <div
@@ -101,7 +101,7 @@ const Header = () => {
             );
           })}
         </div>
-        <div className=" absolute right-16 top-1/2 -translate-y-1/2">
+        <div className=" absolute desktop-L:right-16 right-8 top-1/2 -translate-y-1/2">
           <div
             onClick={() => dispatch(toggle())}
             className="flex items-center justify-center cursor-pointer group/search relative font-semibold"

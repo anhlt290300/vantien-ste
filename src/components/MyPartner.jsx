@@ -54,7 +54,7 @@ const MyPartner = () => {
           </div>
         </div>
         {/* tablet */}
-        <div className=" pb-4 w-full desktop:hidden tablet:block hidden">
+        <div className=" pb-4 w-full desktop:hidden tablet:block hidden pt-6">
           <Swiper
             className="z-[999] text-black w-full"
             spaceBetween={100}
