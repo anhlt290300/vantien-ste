@@ -12,8 +12,8 @@ const Footer = () => {
       <div className="w-screen bg-white pt-12 px-16">
         <div className="w-full px-8 py-8 border-t-2 border-gray-primary grid grid-cols-3">
           <div>
-            <div className="grid grid-cols-1 gap-8">
-              <h3 className="text-3xl font-semibold">
+            <div className="grid grid-cols-1 gap-6">
+              <h3 className=" desktop-L:text-2xl desktop:text-xl font-semibold">
                 Xem thêm trong trang chủ
               </h3>
               {nav.map((item, index) => {
@@ -24,7 +24,7 @@ const Footer = () => {
                     className={
                       index === 0
                         ? "hidden"
-                        : "text-2xl hover:underline underline-offset-4 hover:text-red-primary"
+                        : "text-xl hover:underline underline-offset-4 hover:text-red-primary"
                     }
                   >
                     {item.title}
@@ -33,24 +33,24 @@ const Footer = () => {
               })}
             </div>
           </div>
-          <div className=" col-span-2 border-l-2 border-gray-primary border-dashed grid grid-cols-1 gap-8 px-16">
+          <div className=" col-span-2 border-l-2 border-gray-primary border-dashed grid grid-cols-1 desktop-L:gap-2 gap-3 desktop-L:pl-16 pl-8">
             <div>
-              <h3 className="text-3xl font-semibold">
+              <h3 className="desktop-L:text-2xl desktop:text-xl font-semibold">
                 CÔNG TY TNHH DỊCH VỤ THƯƠNG MẠI THIẾT BỊ VẠN TIẾN
               </h3>
-              <p className="text-2xl">
+              <p className="text-xl">
                 Van Tien Service Trading Equipment (VANTIEN STE){" "}
               </p>
             </div>
-            <p className="text-2xl">
+            <p className="text-xl">
               <span className=" font-semibold">Địa chỉ</span>: Lô B10, Khu Biệt
               Thự Bình Minh, Phường 8, TP. Vũng Tàu, tỉnh Bà Rịa – Vũng Tàu
             </p>
-            <p className="text-2xl">
+            <p className="text-xl">
               <span className=" font-semibold">Điện thoại</span>: 02543 56 39 56
               - Fax: 02543 56 39 57 - Cellphone/Zalo: Mr Hà 0983.02.00.03
             </p>
-            <p className="text-2xl">
+            <p className="text-xl">
               <span className=" font-semibold">Email</span>:
               vantienste@vantienste.com
             </p>
@@ -62,29 +62,29 @@ const Footer = () => {
                   className="max-h-[10rem]"
                 />
               </a>
-              <div className="grid grid-cols-4 gap-6 ml-24">
+              <div className="grid grid-cols-4 gap-6 desktop-L:ml-24 ml-8">
                 <a
                   href="/"
-                  className="w-16 h-16 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
+                  className=" desktop-L:w-16 desktop-L:h-16 w-12 h-12 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
                 >
                   <FaFacebookF size={30} />
                 </a>
                 <a
                   href="/"
-                  className="w-16 h-16 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
+                  className="desktop-L:w-16 desktop-L:h-16 w-12 h-12 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
                 >
                   <FaInstagram size={30} />
                 </a>
 
                 <a
                   href="/"
-                  className="w-16 h-16 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
+                  className="desktop-L:w-16 desktop-L:h-16 w-12 h-12 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
                 >
                   <FaTwitter size={30} />
                 </a>
                 <a
                   href="/"
-                  className="w-16 h-16 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
+                  className="desktop-L:w-16 desktop-L:h-16 w-12 h-12 border border-black-primary flex items-center justify-center hover:bg-yellow-second"
                 >
                   <FaYoutube size={30} />
                 </a>

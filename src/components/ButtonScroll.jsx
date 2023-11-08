@@ -24,7 +24,7 @@ const ButtonScroll = () => {
       onClick={() => scroll()}
       className={
         open
-          ? "fixed w-[6rem] h-[6rem] right-[25px] tablet:bottom-[100px] bottom-[50px] z-[999] border border-black-primary hover:bg-black-second hover:text-white-primary flex items-center justify-center hover:text-hover-a"
+          ? "fixed w-[5.5rem] h-[5.5rem] right-[25px] tablet:bottom-[100px] bottom-[50px] z-[999] border border-black-primary hover:bg-black-second hover:text-white-primary flex items-center justify-center hover:text-hover-a"
           : "hidden"
       }
     >
