@@ -39,7 +39,7 @@ const Slider = () => {
             <SwiperSlide key={index}>
               <a href={item.href}>
                 {" "}
-                <img src={item} className="w-screen" alt="img" />
+                <img src={item} className="w-screen tablet:h-[60vw] h-[75vw]" alt="img" />
               </a>
             </SwiperSlide>
           );
@@ -47,15 +47,15 @@ const Slider = () => {
       </Swiper>
       <div
         onClick={() => swiperRef.current?.slidePrev()}
-        className=" absolute top-1/2 -translate-y-1/2 left-20 p-6 rounded-full bg-[rgba(0,0,0,0.5)] z-[999] text-yellow-second cursor-pointer"
+        className=" absolute top-1/2 -translate-y-1/2 left-[5vw] desktop-L:p-6 desktop:p-5  p-3 rounded-full bg-[rgba(0,0,0,0.5)] z-[999] text-yellow-second cursor-pointer"
       >
-        <AiOutlineLeft size={40} />
+        <AiOutlineLeft className=" tablet:w-10 tablet:h-10 w-5 h-5" />
       </div>
       <div
         onClick={() => swiperRef.current?.slideNext()}
-        className=" absolute top-1/2 -translate-y-1/2 right-20 p-6 rounded-full bg-[rgba(0,0,0,0.5)] z-[999] text-yellow-second cursor-pointer"
+        className=" absolute top-1/2 -translate-y-1/2 right-[5vw] desktop-L:p-6 desktop:p-5  p-3 rounded-full bg-[rgba(0,0,0,0.5)] z-[999] text-yellow-second cursor-pointer"
       >
-        <AiOutlineRight size={40} />
+        <AiOutlineRight className="tablet:w-10 tablet:h-10 w-5 h-5" />
       </div>
     </div>
   );

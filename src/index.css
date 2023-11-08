@@ -1,4 +1,4 @@
-:root{
+:root {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -7,8 +7,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --swiper-pagination-color: #FBD336;
+:root {
+  --swiper-pagination-color: #fbd336;
   --swiper-pagination-left: auto;
   --swiper-pagination-right: 8px;
   --swiper-pagination-bottom: 8px;
@@ -24,4 +24,30 @@
   --swiper-pagination-bullet-opacity: 1;
   --swiper-pagination-bullet-horizontal-gap: 8px;
   --swiper-pagination-bullet-vertical-gap: 6px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.swiper-wrapper {
+  height: fit-content !important;
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

@@ -13,6 +13,7 @@ const HeaderBurger = () => {
 
   const [active, setActive] = useState(false);
   const [openNav, setOpenNav] = useState(false);
+  const [openSear, setOpenSear] = useState(false);
   const [indexItem, setIndexItem] = useState(null);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -34,15 +35,29 @@ const HeaderBurger = () => {
           </a>
         </div>
         <div className="flex h-full text-black-second">
-          <div className="flex items-center justify-center h-full w-14 border border-gray-primary cursor-pointer">
-            <BiSearch size={25} />
+          <div
+            onClick={() => {
+              dispatch(toggle());
+              setOpenSear(!openSear);
+              if (openNav) setOpenNav(false);
+            }}
+            className={
+              openSear
+                ? "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer bg-yellow-second"
+                : "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer"
+            }
+          >
+            {openSear ? <AiOutlineClose size={25} /> : <BiSearch size={25} />}
           </div>
           <div
-            onClick={() => setOpenNav((openNav) => !openNav)}
+            onClick={() => {
+              setOpenNav((openNav) => !openNav);
+              if (openSear) setOpenSear(false), dispatch(toggle());
+            }}
             className={
               openNav
-                ? "flex items-center justify-center h-full w-14 border border-gray-primary cursor-pointer bg-yellow-second"
-                : "flex items-center justify-center h-full w-14 border border-gray-primary cursor-pointer"
+                ? "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer bg-yellow-second"
+                : "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer"
             }
           >
             {openNav ? (
@@ -57,8 +72,8 @@ const HeaderBurger = () => {
         <div
           className={
             indexItem
-              ? "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav active"
-              : "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav"
+              ? "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav active overflow-y-scroll"
+              : "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav overflow-y-scroll"
           }
         >
           <div className="w-full grid grid-cols-1">
@@ -99,11 +114,11 @@ const HeaderBurger = () => {
             </div>
           </div>
           {indexItem && (
-            <div className="w-full  fixed top-14 left-full z-[999999] group-[.active]/nav:-translate-x-full transition-all duration-300 ease-in-out bg-white h-[calc(100vh-3.5rem)]">
-              <div className="grid grid-cols-1">
+            <div className="w-full  fixed top-14 left-full z-[999999] group-[.active]/nav:-translate-x-full transition-all duration-300 ease-in-out bg-white max-h-screen h-[calc(100vh-3.5rem)] overflow-y-scroll">
+              <div className="grid grid-cols-1 ">
                 <div
                   onClick={() => setIndexItem(null)}
-                  className="px-8 py-4 font-semibold text-xl border-b border-gray-primary flex items-center justify-start relative"
+                  className="px-8 py-4 font-semibold text-xl border-b border-gray-primary flex items-center justify-start relative bg-gray-primary"
                 >
                   <IoIosArrowDown className=" rotate-90 absolute left-2" />
                   <p>{nav[indexItem].title}</p>
@@ -112,7 +127,7 @@ const HeaderBurger = () => {
                   return (
                     <div
                       key={index}
-                      className="pl-12 pr-4 py-4 text-xl border-b border-gray-primary flex items-center justify-start relative"
+                      className="pl-10 pr-4 py-2 text-xl border-b border-gray-primary flex items-center justify-start relative"
                     >
                       <a href={item.href}>{item.title}</a>
                     </div>
