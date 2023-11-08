@@ -34,7 +34,7 @@ const AboutUs = () => {
               </a>
             </span>
           </div>
-          <div className="h-full flex items-center justify-end tablet:border-l-2 border-dashed border-gray-primary desktop:col-span-2 col-span-3 tablet:pl-8 tablet:pr-0 p-4">
+          <div className="h-full flex items-center justify-end tablet:border-l-2 border-dashed border-gray-primary desktop:col-span-2 col-span-3 tablet:pl-8 tablet:pr-0 tablet:p-4 px-4">
             <img className=" tablet:h-4/5 w-full tablet:w-full" src={img_congty} alt="" />
           </div>
         </div>

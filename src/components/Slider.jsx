@@ -39,7 +39,7 @@ const Slider = () => {
             <SwiperSlide key={index}>
               <a href={item.href}>
                 {" "}
-                <img src={item} className="w-screen tablet:h-[60vw] h-[75vw]" alt="img" />
+                <img src={item} className="w-screen tablet:h-[40vw] h-[75vw]" alt="img" />
               </a>
             </SwiperSlide>
           );
