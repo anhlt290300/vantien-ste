@@ -47,7 +47,7 @@ const Categorys = () => {
                   return (
                     <div
                       key={index}
-                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3"
+                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3 min-h-[15rem]"
                     >
                       <a
                         href={`/danh-muc/${slug}/${item.slug}`}
@@ -68,7 +68,7 @@ const Categorys = () => {
                             {item.title}
                           </a>
                         </h3>
-                        <p className="max-h-[10rem] tablet:text-base text-sm element">
+                        <p className="max-h-[10rem] tablet:text-base text-sm element normal-case">
                           {item.mini_content}
                         </p>
                       </div>
@@ -83,7 +83,7 @@ const Categorys = () => {
                   return (
                     <div
                       key={index}
-                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3"
+                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3 min-h-[15rem]"
                     >
                       <a
                         href={`/danh-muc/${item.slug}`}
@@ -104,7 +104,7 @@ const Categorys = () => {
                             {item.title}
                           </a>
                         </h3>
-                        <p className="max-h-[10rem] tablet:text-base text-sm element">
+                        <p className="max-h-[10rem] tablet:text-base text-sm element normal-case">
                           {item.content}
                         </p>
                       </div>
