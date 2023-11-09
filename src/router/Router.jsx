@@ -36,7 +36,7 @@ const router = createBrowserRouter(
         </>
       }
     >
-      <Route index element={<Home />} />
+      <Route index element={<History />} />
       <Route path="/tim-kiem" element={<Search />} errorElement={<Page404 />} />
       <Route
         path="/:category/:id"
