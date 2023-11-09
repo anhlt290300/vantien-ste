@@ -9,7 +9,7 @@ import WhyChoseUs from "../components/WhyChoseUs";
 const Home = () => {
   return (
     <section>
-      <Helmet title="Home">
+      <Helmet title="Trang chủ">
         <Slider />
         <AboutUs />
         <HighlightProducts />

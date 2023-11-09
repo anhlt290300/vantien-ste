@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Helmet from '../components/Helmet'
 const History = () => {
   return (
-    <div>History</div>
+    <section>
+        <Helmet title='Giới thiệu công ty'>
+            
+        </Helmet>
+    </section>
   )
 }
 

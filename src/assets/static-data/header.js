@@ -7,7 +7,7 @@ const nav = [
   },
   {
     title: "Giới thiệu",
-    href: "/lich-su-hinh-thanh",
+    href: "/gioi-thieu",
     icon: null,
     childs: null,
   },

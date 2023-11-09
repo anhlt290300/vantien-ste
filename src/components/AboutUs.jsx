@@ -3,11 +3,11 @@ import img_congty from "../assets/picture/cong-ty.jpg";
 const AboutUs = () => {
   return (
     <section>
-      <div className="text-center desktop:pt-16 tablet:pt-8 pt-6 desktop-L:px-32 desktop:px-16 tablet:px-8 flex flex-col items-center">
+      <div className="text-center desktop:pt-16 tablet:pt-8 pt-6 desktop-L:px-32 desktop:px-16 tablet:px-8 flex flex-col items-center overflow-hidden">
         <h1 className=" uppercase desktop-L:text-4xl desktop:text-3xl tablet:text-2xl text-xl font-semibold text-[#404040]">
           về chúng tôi
         </h1>
-        <div className="grid desktop:grid-cols-5 tablet:grid-cols-7 grid-cols-1 tablet:gap-4  desktop:py-12 tablet:py-6 ">
+        <div className=" tablet:grid desktop:grid-cols-5 tablet:grid-cols-7 tablet:gap-4  desktop:py-12 tablet:py-6 ">
           <div className="w-full text-start desktop:text-xl tablet:text-base desktop::leading-8 leading-6 tablet:indent-8 indent-4 desktop:col-span-3 col-span-4 tablet:p-0 p-4  ">
             <p>
               Công ty Trách Nhiệm Hữu Hạn Dịch Vụ Thương Mại Thiết Bị Vạn Tiến
@@ -35,7 +35,7 @@ const AboutUs = () => {
             </span>
           </div>
           <div className="h-full flex items-center justify-end tablet:border-l-2 border-dashed border-gray-primary desktop:col-span-2 col-span-3 tablet:pl-8 tablet:pr-0 tablet:p-4 px-4">
-            <img className=" tablet:h-4/5 w-full tablet:w-full" src={img_congty} alt="" />
+            <img className=" tablet:h-4/5 w-full tablet:w-full max-h-fit" src={img_congty} alt="" />
           </div>
         </div>
         <div className="w-1/3 border-b-4 border-red-primary mt-6" />
