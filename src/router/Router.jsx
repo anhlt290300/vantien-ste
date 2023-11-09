@@ -2,7 +2,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  redirect,
 } from "react-router-dom";
 
 import Layout from "../Layout";
@@ -24,52 +23,70 @@ import HeaderBurger from "../parts/HeaderBurger";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      path="/"
-      element={<Layout />}
-      errorElement={
-        <>
-          <Header />
-          <HeaderBurger />
-          <Page404 />
-          <Footer />
-        </>
-      }
-    >
-      <Route index element={<History />} />
-      <Route path="/tim-kiem" element={<Search />} errorElement={<Page404 />} />
+    <Route>
       <Route
-        path="/:category/:id"
-        element={<Products />}
-        errorElement={<Page404 />}
-      />
+        path="/"
+        element={<Layout />}
+        errorElement={
+          <>
+            <Header />
+            <HeaderBurger />
+            <Page404 />
+            <Footer />
+          </>
+        }
+      >
+        <Route index element={<Home />} />
+      </Route>
       <Route
-        path="/gioi-thieu"
-        element={<History />}
-        errorElement={<Page404 />}
-      />
-      <Route
-        path="/tuyen-dung"
-        element={<Recruit />}
-        errorElement={<Page404 />}
-      />
-      <Route
-        path="/dich-vu"
-        element={<Services />}
-        errorElement={<Page404 />}
-      />
-      <Route
-        path="/tin-tuc-va-su-kien"
-        element={<News />}
-        errorElement={<Page404 />}
-      />
-      <Route
-        path="/san-pham/san-pham-noi-bat"
-        element={<Products />}
-        errorElement={<Page404 />}
-      />
+        path="/tim-kiem"
+        element={<Layout />}
+        errorElement={
+          <>
+            <Header />
+            <HeaderBurger />
+            <Page404 />
+            <Footer />
+          </>
+        }
+      >
+        <Route index element={<History />} />
+      </Route>
     </Route>
   )
 );
 
 export default router;
+{/* <Route
+  path="/"
+  element={<Layout />}
+  errorElement={
+    <>
+      <Header />
+      <HeaderBurger />
+      <Page404 />
+      <Footer />
+    </>
+  }
+>
+  <Route index element={<History />} />
+  <Route path="/tim-kiem" element={<Search />} errorElement={<Page404 />} />
+  <Route
+    path="/:category/:id"
+    element={<Products />}
+    errorElement={<Page404 />}
+  />
+  <Route path="/gioi-thieu" element={<History />} errorElement={<Page404 />} />
+  <Route path="/tuyen-dung" element={<Recruit />} errorElement={<Page404 />} />
+  <Route path="/dich-vu" element={<Services />} errorElement={<Page404 />} />
+  <Route
+    path="/tin-tuc-va-su-kien"
+    element={<News />}
+    errorElement={<Page404 />}
+  />
+  <Route
+    path="/san-pham/san-pham-noi-bat"
+    element={<Products />}
+    errorElement={<Page404 />}
+  />
+</Route>; */}
