@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../assets/picture/logo.png";
 import vietnam from "../assets/picture/vietnam.svg";
 import { nav } from "../assets/static-data/header";
@@ -11,20 +11,9 @@ import { toggle } from "../redux/slice/search";
 const HeaderBurger = () => {
   const dispatch = useDispatch();
 
-  const [active, setActive] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [openSear, setOpenSear] = useState(false);
   const [indexItem, setIndexItem] = useState(null);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) setActive(true);
-      else setActive(false);
-    });
-    console.log(indexItem);
-    return () => {
-      window.removeEventListener("scroll", () => {});
-    };
-  }, []);
 
   return (
     <header className="w-screen  desktop:hidden block  h-14 ">
