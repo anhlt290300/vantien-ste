@@ -77,7 +77,7 @@ const HighlightProducts = () => {
           </Swiper>
         </div>
         {/* mobile */}
-        <div className="py-6 w-full tablet:hidden block px-4">
+        <div className="pt-6 w-full tablet:hidden block px-4">
           <Swiper
             className="z-[900] text-black w-full"
             spaceBetween={30}

@@ -79,7 +79,7 @@ const MyPartner = () => {
               );
             })}
           </Swiper>
-          <div className=" min-h-[2rem] w-full flex items-end justify-center py-2">
+          <div className=" min-h-[2rem] w-full flex items-end justify-center pt-4">
             {partner_ && (
               <p className="w-full leading-8 text-center">
                 <span className=" text-base font-semibold underline underline-offset-4 ">
@@ -116,7 +116,7 @@ const MyPartner = () => {
               );
             })}
           </Swiper>
-          <div className=" min-h-[1rem] w-full flex items-end justify-center py-2">
+          <div className=" min-h-[1rem] w-full flex items-end justify-center pt-4">
             {partner_ && (
               <p className="w-full leading-6 text-center">
                 <span className=" text-sm font-semibold underline underline-offset-4 ">
@@ -128,16 +128,16 @@ const MyPartner = () => {
           </div>
         </div>
         {/* mobile small */}
-        <div className=" pt-3 w-full mobile-L:hidden block px-4">
+        <div className=" pt-6 w-full mobile-L:hidden block px-4">
           <Swiper
             className="z-[999] text-black w-full"
             spaceBetween={100}
             slidesPerView={1}
             loop={true}
-            // autoplay={{
-            //   delay: 2500,
-            //   pauseOnMouseEnter: true,
-            // }}
+            autoplay={{
+              delay: 2500,
+              pauseOnMouseEnter: true,
+            }}
             modules={[Autoplay]}
           >
             {partner.map((item, index) => {
@@ -153,7 +153,7 @@ const MyPartner = () => {
               );
             })}
           </Swiper>
-          <div className=" min-h-[1rem] w-full flex items-end justify-center py-2">
+          <div className=" min-h-[1rem] w-full flex items-end justify-center pt-4">
             {partner_ && (
               <p className="w-full leading-6 text-center">
                 <span className=" text-sm font-semibold underline underline-offset-4 ">
