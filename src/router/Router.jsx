@@ -18,19 +18,61 @@ import History from "../pages/History";
 import Recruit from "../pages/Recruit";
 import Services from "../pages/Services";
 import News from "../pages/News";
+import Header from "../parts/Header";
+import Footer from "../parts/Footer";
+import HeaderBurger from "../parts/HeaderBurger";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element={<Layout />} errorElement={<Page404 />}>
+      <Route
+        path="/"
+        element={<Layout />}
+        errorElement={
+          <>
+            <Header />
+            <HeaderBurger />
+            <Page404 />
+            <Footer />
+          </>
+        }
+      >
         <Route index element={<Home />} />
-        <Route path="/tim-kiem" element={<Search />} />
-        <Route path="/:category/:id" element={<Products />} />
-        <Route path="/gioi-thieu" element={<>abc</>} />
-        <Route path="/tuyen-dung" element={<Recruit />} />
-        <Route path="/dich-vu" element={<Services />} />
-        <Route path="/tin-tuc-va-su-kien" element={<News />} />
-        <Route path="/san-pham/san-pham-noi-bat" element={<Products/>}/>
+        <Route
+          path="/tim-kiem"
+          element={<Search />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/:category/:id"
+          element={<Products />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/gioi-thieu"
+          element={<History />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/tuyen-dung"
+          element={<Recruit />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/dich-vu"
+          element={<Services />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/tin-tuc-va-su-kien"
+          element={<News />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/san-pham/san-pham-noi-bat"
+          element={<Products />}
+          errorElement={<Page404 />}
+        />
       </Route>
     </Route>
   )
