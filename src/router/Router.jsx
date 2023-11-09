@@ -20,6 +20,12 @@ import News from "../pages/News";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
 import HeaderBurger from "../parts/HeaderBurger";
+import Categorys from "../pages/Categorys";
+import { getCategory } from "../assets/static-data/categorys";
+import {
+  getProductByCategoryslug,
+  getProductBySlug,
+} from "../assets/static-data/products";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +44,51 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/tim-kiem" element={<Search />} errorElement={<Page404 />} />
       <Route
-        path="/:category/:id"
+        path="/danh-muc/:category_slug"
+        loader={({ params }) => {
+          let category_slug = params.category_slug;
+          let category = getCategory(category_slug);
+          if (category) {
+            if (category_slug !== "tat-ca") {
+              let products = getProductByCategoryslug(category_slug);
+              return {
+                title: category.title,
+                slug: category.slug,
+                products: products,
+                img: category.img,
+                content: category.content,
+              };
+            } else
+              return {
+                title: "Tất cả danh mục",
+                categorys: category,
+              };
+          }
+          throw new Response("Can't find category", { status: 400 });
+        }}
+        element={<Categorys />}
+        errorElement={<Page404 />}
+      />
+      <Route
+        path="/danh-muc/:category_slug/:product_slug"
+        loader={({ params }) => {
+          let category_slug = params.category_slug;
+          let product_slug = params.product_slug;
+          let category = getCategory(category_slug);
+          if (category) {
+            let product = getProductBySlug(product_slug);
+
+            if (product) {
+              return {
+                category_slug: category_slug,
+                category_title: category.title,
+                product: product,
+              };
+            }
+            throw new Response("Can't find product", { status: 400 });
+          }
+          throw new Response("Can't find category", { status: 400 });
+        }}
         element={<Products />}
         errorElement={<Page404 />}
       />
@@ -60,11 +110,6 @@ const router = createBrowserRouter(
       <Route
         path="/tin-tuc-va-su-kien"
         element={<News />}
-        errorElement={<Page404 />}
-      />
-      <Route
-        path="/san-pham/san-pham-noi-bat"
-        element={<Products />}
         errorElement={<Page404 />}
       />
     </Route>
