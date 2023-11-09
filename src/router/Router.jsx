@@ -26,7 +26,7 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/tim-kiem" element={<Search />} />
         <Route path="/:category/:id" element={<Products />} />
-        <Route path="/gioi-thieu" element={<History />} />
+        <Route path="/gioi-thieu" element={<>abc</>} />
         <Route path="/tuyen-dung" element={<Recruit />} />
         <Route path="/dich-vu" element={<Services />} />
         <Route path="/tin-tuc-va-su-kien" element={<News />} />

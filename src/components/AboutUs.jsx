@@ -28,7 +28,7 @@ const AboutUs = () => {
             <span className="flex tablet:justify-start justify-end w-full">
               <a
                 className=" underline underline-offset-4 font-semibold desktop:text-xl mobile-L:text-lg text-base indent-0 text-red-primary"
-                href="/lich-su-hinh-thanh"
+                href="/gioi-thieu"
               >
                 Xem tất cả
               </a>
