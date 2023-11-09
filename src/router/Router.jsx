@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Outlet,
   Route,
 } from "react-router-dom";
 
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
       </Route>
       <Route
-        path="/tim-kiem"
+        path="/gioi-thieu"
         element={<Layout />}
         errorElement={
           <>
@@ -57,7 +58,8 @@ const router = createBrowserRouter(
 );
 
 export default router;
-{/* <Route
+{
+  /* <Route
   path="/"
   element={<Layout />}
   errorElement={
@@ -89,4 +91,5 @@ export default router;
     element={<Products />}
     errorElement={<Page404 />}
   />
-</Route>; */}
+</Route>; */
+}
