@@ -118,7 +118,7 @@ const HeaderBurger = () => {
                       key={index}
                       className="pl-10 pr-4 py-2 text-xl border-b border-gray-primary flex items-center justify-start relative"
                     >
-                      <a href={item.href}>{item.title}</a>
+                      <a href={`/danh-muc/${item.slug}`}>{item.title}</a>
                     </div>
                   );
                 })}
