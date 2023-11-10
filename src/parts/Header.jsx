@@ -5,9 +5,11 @@ import { nav } from "../assets/static-data/header";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { toggle } from "../redux/slice/search";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Header = () => {
   const dispatch = useDispatch();
+  console.log(nav)
 
   const [active, setActive] = useState(false);
 
@@ -74,21 +76,20 @@ const Header = () => {
                 >
                   <span>{item.title}</span>
                   {item.icon && (
-                    <div
-                      className=" ml-2 group-hover/nav:rotate-180 transition-all duration-200 ease-in-out"
-                      dangerouslySetInnerHTML={{ __html: `${item.icon}` }}
-                    />
+                    <div className=" ml-2 group-hover/nav:rotate-180 transition-all duration-200 ease-in-out">
+                      <IoIosArrowDown />
+                    </div>
                   )}
                 </a>
                 {item.childs && (
                   <div className="z-[1000] absolute top-full left-0  h-0 w-max overflow-hidden bg-black-second  group-hover/nav:h-max transition-all duration-300 ease-in-out ">
-                    <div className="grid grid-cols-2 gap-y-8 gap-x-20 px-16 py-8">
+                    <div className="grid grid-cols-1   gap-y-8 gap-x-20 px-8 py-4 text-xl">
                       {item.childs.map((item_, index_) => {
                         return (
                           <a
-                            href={item_.href}
+                            href={`/danh-muc/${item_.slug}`}
                             key={index_}
-                            className=" text-white-primary underline-offset-4 hover:underline min-w-max text-start"
+                            className=" text-white-primary underline-offset-4 hover:underline min-w-max text-start cursor-pointer"
                           >
                             {item_.title}
                           </a>
