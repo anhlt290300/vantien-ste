@@ -98,7 +98,7 @@ const products = [
     </ul>`,
     category_slug: "kich-thuy-luc-holmatro",
     slug: "gioi-thieu-sp-holmatro",
-  }, 
+  },
 ];
 
 const getProductByCategoryslug = (category_slug) => {
@@ -109,4 +109,6 @@ const getProductBySlug = (slug) => {
   return products.find((el) => el.slug === slug);
 };
 
-export { getProductByCategoryslug, getProductBySlug };
+const getAllProduct = () => products;
+
+export { getProductByCategoryslug, getProductBySlug, getAllProduct };

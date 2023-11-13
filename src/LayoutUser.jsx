@@ -5,7 +5,7 @@ import Footer from "./parts/Footer";
 import SearchBox from "./components/SearchBox";
 import ButtonScroll from "./components/ButtonScroll";
 import HeaderBurger from "./parts/HeaderBurger";
-const Layout = () => {
+const LayoutUser = () => {
   return (
     <div className=" bg-white-primary overflow-hidden">
       <Header />
@@ -18,4 +18,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default LayoutUser;

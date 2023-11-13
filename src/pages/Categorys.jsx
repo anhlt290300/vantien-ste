@@ -2,10 +2,10 @@ import React from "react";
 import Helmet from "../components/Helmet";
 import { useLoaderData } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
-
+import ProductCard from "../components/ProductCard";
 const Categorys = () => {
   const { title, categorys, slug, products, content, img } = useLoaderData();
-  console.log(categorys);
+  //console.log(categorys);
   return (
     <section>
       <Helmet title={`Danh mục - ${title}`}>
@@ -34,7 +34,8 @@ const Categorys = () => {
                 <p className=" tablet:text-lg  text-sm leading-8 tablet:mt-4 mt-2">
                   <strong>
                     Công ty TNHH dịch vụ thương mại thiết bị Vạn Tiến
-                  </strong>,&nbsp;
+                  </strong>
+                  ,&nbsp;
                   <span>{content}</span>
                 </p>
               )}
@@ -45,33 +46,13 @@ const Categorys = () => {
               <div className="grid desktop:grid-cols-2 grid-cols-1 gap-8 bg-white px-4 py-6">
                 {products.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3 min-h-[15rem]"
-                    >
-                      <a
-                        href={`/danh-muc/${slug}/${item.slug}`}
-                        className="col-span-5 flex items-center"
-                      >
-                        <img
-                          src={item.img[0]}
-                          className=" w-full tablet:h-full"
-                          alt=""
-                        />
-                      </a>
-                      <div className="flex flex-col col-span-6 target:mt-0 mt-4">
-                        <h3 className=" font-semibold tablet:text-xl text-base tablet:mb-4 mb-2">
-                          <a
-                            href={`/danh-muc/${slug}/${item.slug}`}
-                            className=" hover:text-red-primary"
-                          >
-                            {item.title}
-                          </a>
-                        </h3>
-                        <p className="max-h-[10rem] tablet:text-base text-sm element normal-case">
-                          {item.mini_content}
-                        </p>
-                      </div>
+                    <div key={index}>
+                      <ProductCard
+                        item={item}
+                        slug={slug}
+                        category={false}
+                        index={index}
+                      />
                     </div>
                   );
                 })}
@@ -81,33 +62,13 @@ const Categorys = () => {
               <div className="grid desktop:grid-cols-2 grid-cols-1 gap-8 bg-white px-4 py-6">
                 {categorys.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3 min-h-[15rem]"
-                    >
-                      <a
-                        href={`/danh-muc/${item.slug}`}
-                        className="col-span-5 flex items-center"
-                      >
-                        <img
-                          src={item.img}
-                          className=" w-full tablet:h-full"
-                          alt=""
-                        />
-                      </a>
-                      <div className="flex flex-col col-span-6 target:mt-0 mt-4">
-                        <h3 className=" font-semibold tablet:text-xl text-base tablet:mb-4 mb-2">
-                          <a
-                            href={`/danh-muc/${item.slug}`}
-                            className=" hover:text-red-primary"
-                          >
-                            {item.title}
-                          </a>
-                        </h3>
-                        <p className="max-h-[10rem] tablet:text-base text-sm element normal-case">
-                          {item.content}
-                        </p>
-                      </div>
+                    <div key={index}>
+                      <ProductCard
+                        item={item}
+                        slug={slug}
+                        category={true}
+                        index={index}
+                      />
                     </div>
                   );
                 })}

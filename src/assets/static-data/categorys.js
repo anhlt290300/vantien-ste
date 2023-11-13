@@ -36,11 +36,10 @@ const categorys = [
   },
 ];
 
-const getCategory = (slug) => {
+const getCategoryBySlug = (slug) => {
   if (slug === "tat-ca") return categorys;
   return categorys.find((e) => e.slug === slug);
 };
-
 const getAllCategory = () => categorys;
 
-export { getCategory, getAllCategory };
+export { getAllCategory, getCategoryBySlug };

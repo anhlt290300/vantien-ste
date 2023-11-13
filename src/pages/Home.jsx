@@ -6,11 +6,13 @@ import HighlightProducts from "../components/HighlightProducts";
 import MyPartner from "../components/MyPartner";
 import MyCustomer from "../components/MyCustomer";
 import WhyChoseUs from "../components/WhyChoseUs";
+
 const Home = () => {
   return (
     <section>
       <Helmet title="Trang chủ">
         <Slider />
+
         <AboutUs />
         <HighlightProducts />
         <MyPartner />
