@@ -5,10 +5,16 @@ import {
   addCategory,
   deleteCategory,
   getAllCategory,
+  getCategoryBySlug,
   updateCategory,
 } from "./db/category.js";
 import bodyParser from "body-parser";
-import { addProduct, getAllProduct } from "./db/product.js";
+import {
+  addProduct,
+  getAllProduct,
+  getProductByCategoryId,
+  getProductBySlug
+} from "./db/product.js";
 
 const app = express();
 
@@ -24,6 +30,10 @@ app.get("/gioi-thieu", (req, res) => {
   res.sendFile(path.resolve("../dist/index.html"));
 });
 app.get("/danh-muc/:id", (req, res) => {
+  res.sendFile(path.resolve("../dist/index.html"));
+});
+
+app.get("/danh-muc/:id1/:id2", (req, res) => {
   res.sendFile(path.resolve("../dist/index.html"));
 });
 app.get("/dich-vu", (req, res) => {
@@ -46,6 +56,12 @@ app.get("/quan-tri-vien/:id", (req, res) => {
 
 app.get("/api/getAllcategory", async (req, res) => {
   await getAllCategory()
+    .then((result) => res.json(result))
+    .catch((error) => res.json(error));
+});
+
+app.post("/api/getcategoryByslug", async (req, res) => {
+  await getCategoryBySlug(req.body.slug)
     .then((result) => res.json(result))
     .catch((error) => res.json(error));
 });
@@ -75,8 +91,21 @@ app.post("/api/deletecategory", async (req, res) => {
     .catch((error) => res.json(error));
 });
 
+// products
 app.get("/api/getAllproduct", async (req, res) => {
   await getAllProduct()
+    .then((result) => res.json(result))
+    .catch((error) => res.json(error));
+});
+
+app.post("/api/getproductBycategoryid", async (req, res) => {
+  await getProductByCategoryId(req.body.id_category)
+    .then((result) => res.json(result))
+    .catch((error) => res.json(error));
+});
+
+app.post("/api/getproductByslug", async (req, res) => {
+  await getProductBySlug(req.body.slug)
     .then((result) => res.json(result))
     .catch((error) => res.json(error));
 });

@@ -13,6 +13,14 @@ const getAllCategory = async () => {
   return (await axios.get("/api/getAllcategory")).data;
 };
 
+const getCategoryBySlug = async (slug) => {
+  return (
+    await axios.post("/api/getcategoryBySlug", {
+      slug,
+    })
+  ).data;
+};
+
 const updateCategory = async (id, img, title, slug, content) => {
   return axios.post("/api/updatecategory", {
     id,
@@ -24,11 +32,11 @@ const updateCategory = async (id, img, title, slug, content) => {
 };
 
 const deleteCategory = async (listItem) => {
-  console.log(listItem.length );
+  console.log(listItem.length);
   return axios.post("/api/deletecategory", {
     listitem: listItem,
     count: listItem.length,
   });
 };
 
-export { addCategory, getAllCategory, updateCategory, deleteCategory };
+export { addCategory, getAllCategory, updateCategory, deleteCategory ,getCategoryBySlug};

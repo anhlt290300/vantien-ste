@@ -15,7 +15,7 @@ const ProductCard = ({ item, slug, category, admin }) => {
           className="col-span-5 flex items-center"
         >
           <img
-            src={category ? item.img : item.img[0]}
+            src={category ? item.img : item.img}
             className=" w-full tablet:h-full"
             alt=""
           />
@@ -31,7 +31,7 @@ const ProductCard = ({ item, slug, category, admin }) => {
           className="col-span-5 flex items-center"
         >
           <img
-            src={category ? item.img : item.img[0]}
+            src={category ? item.img : item.img}
             className=" w-full tablet:h-full"
             alt=""
           />

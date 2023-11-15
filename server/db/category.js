@@ -13,8 +13,15 @@ const getAllCategory = async () => {
   return [rows];
 };
 
+const getCategoryBySlug = async (slug) => {
+  let sql = "SELECT * FROM category WHERE slug = ?";
+  const [rows] = await db.promise().query(sql, [slug]);
+  console.log(slug)
+  return [rows][0];
+};
+
 const addCategory = async (category) => {
-  console.log(category.img.length)
+  console.log(category.img.length);
   let [check] = await checkExists(category.id);
 
   if (check[0]?.id) {
@@ -94,4 +101,10 @@ const deleteCategory = async ({ listitem, count }) => {
   };
 };
 
-export { getAllCategory, addCategory, updateCategory, deleteCategory };
+export {
+  getAllCategory,
+  addCategory,
+  updateCategory,
+  deleteCategory,
+  getCategoryBySlug,
+};

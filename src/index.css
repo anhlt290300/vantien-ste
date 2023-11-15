@@ -80,3 +80,36 @@ input::-webkit-inner-spin-button {
 .image img{
   margin-bottom: 0.5rem;
 }
+
+.content h1{
+  font-size: 1.5rem;
+}
+.content h2{
+  font-size: 1.25rem;
+}
+.content h3{
+  font-size: 1rem;
+}
+.content hr{
+  height: 4px;
+  background: #404040;
+}
+.content ul{
+  list-style: disc;
+}
+.content li{
+   margin-top: 4px;
+   margin-bottom: 4px;
+}
+
+.content table tr{
+  border: #404040;
+  border-width: 2px;
+}
+.content td {
+  border-width: 2px;
+  border-color: #404040;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+

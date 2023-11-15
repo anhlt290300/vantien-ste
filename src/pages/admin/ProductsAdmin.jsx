@@ -11,7 +11,7 @@ import { useLoaderData } from "react-router-dom";
 
 const ProductsAdmin = () => {
   const [products, setProducts] = useState(useLoaderData());
-  console.log(products)
+  console.log(products);
   const [update, setUpdate] = useState(null);
   const [add, setAdd] = useState(false);
   return (
@@ -110,7 +110,9 @@ const ProductsAdmin = () => {
                     <p>{item.mini_content}</p>
                   </div>
                   <div className="p-2 flex items-center justify-center max-h-32 col-span-3 element">
-                    <p dangerouslySetInnerHTML={{ __html: item.main_content }}></p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: item.main_content }}
+                    ></p>
                   </div>
                   <div className="p-2 w-full flex items-center justify-center max-h-32 col-span-1">
                     <button
@@ -155,8 +157,9 @@ const AddProduct = ({ setAdd }) => {
   useEffect(() => {
     const getCategory = async () => {
       let categorys_ = await getAllCategory();
-      console.log(categorys_[0]);
+      //console.log(categorys_[0]);
       setCategory(categorys_[0]);
+      setCategoryId(categorys_[0][0].id);
     };
     getCategory();
   }, []);
@@ -391,10 +394,15 @@ const AddProduct = ({ setAdd }) => {
               </p>
             )}
           </div>
-          {maincontent && <div>{maincontent}</div>}
+          {maincontent && (
+            <div
+              dangerouslySetInnerHTML={{ __html: maincontent }}
+              className="w-full p-4 content"
+            ></div>
+          )}
           <button
             type="submit"
-            className=" border px-6 py-3 mb-4 rounded-md font-semibold text-white-primary bg-black-primary"
+            className=" border px-6 py-3 mb-4 rounded-md font-semibold text-white-primary  bg-black-primary"
           >
             Tạo danh mục
           </button>

@@ -16,7 +16,7 @@ const Header = () => {
   useEffect(() => {
     const getData = async () => {
       let category_ = await getAllCategory();
-      console.log(category_[0])
+      //console.log(category_[0])
       setCategorys(category_[0]);
     };
     getData();

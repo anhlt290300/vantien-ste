@@ -13,9 +13,23 @@ const getAllProduct = async () => {
   return [rows];
 };
 
+const getProductByCategoryId = async (id_category) => {
+  // console.log(id_category)
+  let sql = "SELECT * FROM product WHERE id_category = ?";
+  const [rows] = await db.promise().query(sql, [id_category]);
+  return [rows][0];
+};
+
+const getProductBySlug = async (slug) => {
+  console.log(slug)
+  let sql = "SELECT * FROM product WHERE slug = ?";
+  const [rows] = await db.promise().query(sql, [slug]);
+  return [rows][0];
+};
+
 const addProduct = async (product) => {
   let [check] = await checkExists(product.title);
-  console.log(check)
+  console.log(check);
   if (check[0]?.id) {
     return {
       message: "Sản phẩm đã tồn tại",
@@ -95,4 +109,11 @@ const deleteCategory = async ({ listitem, count }) => {
   };
 };
 
-export { getAllProduct, addProduct, updateCategory, deleteCategory };
+export {
+  getAllProduct,
+  addProduct,
+  updateCategory,
+  deleteCategory,
+  getProductByCategoryId,
+  getProductBySlug
+};

@@ -22,6 +22,22 @@ const getAllProduct = async () => {
   return (await axios.get("/api/getAllproduct")).data;
 };
 
+const getProductByCategoryId = async (id) => {
+  let id_category = id;
+  return (
+    await axios.post("/api/getproductBycategoryid", {
+      id_category,
+    })
+  ).data;
+};
+
+const getProductBySlug = async (slug) => {
+  return (
+    await axios.post("/api/getproductByslug", {
+      slug,
+    })
+  ).data;
+};
 // const updateCategory = async (id, img, title, slug, content) => {
 //   return axios.post("/api/updatecategory", {
 //     id,
@@ -40,4 +56,4 @@ const getAllProduct = async () => {
 //   });
 // };
 
-export { addProduct, getAllProduct};
+export { addProduct, getAllProduct, getProductByCategoryId, getProductBySlug };

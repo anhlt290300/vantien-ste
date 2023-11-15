@@ -22,18 +22,14 @@ import Header from "../parts/Header";
 import Footer from "../parts/Footer";
 import HeaderBurger from "../parts/HeaderBurger";
 import Categorys from "../pages/Categorys";
-import { getCategoryBySlug } from "../assets/static-data/categorys";
-import {
-  getProductByCategoryslug,
-  getProductBySlug,
-} from "../assets/static-data/products";
 
 import ProductsAdmin from "../pages/admin/ProductsAdmin";
 import NewsAdmin from "../pages/admin/NewsAdmin";
 import RecruitAdmin from "../pages/admin/RecruitAdmin";
 import CategorysAdmin from "../pages/admin/CategorysAdmin";
-import { getAllCategory } from "../api/category";
-import { getAllProduct } from "../api/product";
+import { getAllCategory, getCategoryBySlug } from "../api/category";
+import { getAllProduct, getProductByCategoryId, getProductBySlug } from "../api/product";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -60,44 +56,47 @@ const router = createBrowserRouter(
           path="/danh-muc/:category_slug"
           loader={async ({ params }) => {
             let category_slug = params.category_slug;
-            let category = getCategoryBySlug(category_slug);
-            if (category) {
-              if (category_slug !== "tat-ca") {
-                let products = getProductByCategoryslug(category_slug);
+            if (category_slug === "tat-ca") {
+              let category_ = await getAllCategory();
+              return {
+                title: "Tất cả danh mục",
+                categorys: category_[0],
+              };
+            } else {
+              let category = await getCategoryBySlug(category_slug);
+              //console.log(category[0])
+              if (category.length > 0) {
+                let products = await getProductByCategoryId(category[0].id);
+                //console.log(products)
                 return {
-                  title: category.title,
-                  slug: category.slug,
+                  title: category[0].title,
+                  slug: category[0].slug,
                   products: products,
-                  img: category.img,
-                  content: category.content,
+                  img: category[0].img,
+                  content: category[0].content,
                 };
               } else {
-                let category_ = await getAllCategory()
-                return {
-                  title: "Tất cả danh mục",
-                  categorys: category_[0],
-                };
+                throw new Response("Can't find category", { status: 400 });
               }
             }
-            throw new Response("Can't find category", { status: 400 });
           }}
           element={<Categorys />}
           errorElement={<Page404 />}
         />
         <Route
           path="/danh-muc/:category_slug/:product_slug"
-          loader={({ params }) => {
+          loader={async ({ params }) => {
             let category_slug = params.category_slug;
             let product_slug = params.product_slug;
-            let category = getCategoryBySlug(category_slug);
-            if (category) {
-              let product = getProductBySlug(product_slug);
-
+            let category = await getCategoryBySlug(category_slug);
+            if (category.length > 0) {
+              let product = await getProductBySlug(product_slug);
+              //console.log(product)
               if (product) {
                 return {
                   category_slug: category_slug,
-                  category_title: category.title,
-                  product: product,
+                  category_title: category[0].title,
+                  product: product[0],
                 };
               }
               throw new Response("Can't find product", { status: 400 });
