@@ -5,6 +5,10 @@ const db = mysql.createConnection({
   user: "frptajer_sang",
   password: "m9ja,tNv=SDy",
   database: "frptajer_vantienste_db",
+  //  host: "localhost",
+  // user: "root",
+  // password: "0918806450",
+  // database: "vantien-ste",
 });
 
 export { db };

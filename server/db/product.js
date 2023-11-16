@@ -1,34 +1,43 @@
 import { db } from "./connect.js";
 import { uid } from "uid";
 
-const checkExists = async (title) => {
+const checkExistsWithTitle = async (title) => {
   let sql = `SELECT id FROM product WHERE title = ? LIMIT 1`;
   const [rows] = await db.promise().query(sql, [title]);
   return [rows];
 };
 
+const checkExistsWithId = async (id) => {
+  let sql = `SELECT id FROM product WHERE id = ? LIMIT 1`;
+  const [rows] = await db.promise().query(sql, [id]);
+  return [rows];
+};
+
 const getAllProduct = async () => {
-  let sql = "SELECT * FROM product";
+  let sql =
+    "SELECT product.title,product.id_category, product.slug,product.id,product.img,product.mini_content,product.main_content,category.slug FROM `product` INNER JOIN `category` ON product.id_category = category.id";
   const [rows] = await db.promise().query(sql);
   return [rows];
 };
 
 const getProductByCategoryId = async (id_category) => {
   // console.log(id_category)
-  let sql = "SELECT * FROM product WHERE id_category = ?";
+  let sql =
+    "SELECT product.title,product.slug,product.id,product.img,product.mini_content,product.main_content,category.title FROM `product` INNER JOIN `category` ON product.id_category = category.id AND category.id = ?";
   const [rows] = await db.promise().query(sql, [id_category]);
   return [rows][0];
 };
 
 const getProductBySlug = async (slug) => {
-  console.log(slug)
+  // console.log(slug);
   let sql = "SELECT * FROM product WHERE slug = ?";
   const [rows] = await db.promise().query(sql, [slug]);
   return [rows][0];
 };
 
 const addProduct = async (product) => {
-  let [check] = await checkExists(product.title);
+  //console.log(product.img.JSON())
+  let [check] = await checkExistsWithTitle(product.title);
   console.log(check);
   if (check[0]?.id) {
     return {
@@ -36,6 +45,7 @@ const addProduct = async (product) => {
       code: "500",
     };
   } else {
+    //console.log(JSON.stringify(product.img));
     let id = uid();
     let sql =
       "INSERT INTO product (`id`,`id_category`,`title`,`slug`,`mini_content`,`main_content`,`img`) VALUES (?,?,?,?,?,?,?)";
@@ -48,7 +58,7 @@ const addProduct = async (product) => {
         product.slug,
         product.mini_content,
         product.main_content,
-        product.img,
+        JSON.stringify(product.img),
       ]);
     return {
       message: "Thêm sản phẩm thành công",
@@ -57,42 +67,52 @@ const addProduct = async (product) => {
   }
 };
 
-const updateCategory = async (category) => {
-  //console.log(category);
-  let [check] = await checkExists(category.id);
-
+const updateProduct = async ({
+  id,
+  title,
+  id_category,
+  slug,
+  mini_content,
+  main_content,
+  img,
+}) => {
+  console.log(id)
+  let [check] = await checkExistsWithId(id);
+  console.log(check);
   if (!check[0]?.id) {
     return {
-      message: "Danh mục không tồn tại",
+      message: "Sản phẩm chưa tồn tại",
       code: "500",
     };
   } else {
     let sql =
-      "UPDATE category SET title = ? , img = ? , content = ? , slug = ? WHERE id = ?";
+      "UPDATE product SET title = ? , id_category = ? , slug = ? , mini_content = ? , main_content = ?, img = ? WHERE id = ?";
     await db
       .promise()
       .query(sql, [
-        category.title,
-        category.img,
-        category.content,
-        category.slug,
-        category.id,
+        title,
+        id_category,
+        slug,
+        mini_content,
+        main_content,
+        JSON.stringify(img),
+        id,
       ]);
     return {
-      message: "Cập nhập danh mục thành công",
+      message: "Cập nhập sản phẩm thành công",
       code: "200",
     };
   }
 };
 
-const deleteCategory = async ({ listitem, count }) => {
+const deleteProduct = async ({ listitem, count }) => {
   // console.log(count);
   // console.log(listitem[0].id);
   for (let i = 0; i < count; i++) {
-    let [check] = await checkExists(listitem[i].id);
+    let [check] = await checkExistsWithId(listitem[i].id);
     if (!check[0]?.id) {
       return {
-        message: "Có danh mục không tồn tại",
+        message: "Có sản phẩm không tồn tại",
         code: "500",
       };
     }
@@ -100,11 +120,11 @@ const deleteCategory = async ({ listitem, count }) => {
 
   for (let i = 0; i < count; i++) {
     //console.log(listitem[i].id);
-    let sql = "DELETE FROM category WHERE id = ?";
+    let sql = "DELETE FROM product WHERE id = ?";
     await db.promise().query(sql, [listitem[i].id]);
   }
   return {
-    message: "Xóa danh mục thành công",
+    message: "Xóa sản phẩm thành công",
     code: "200",
   };
 };
@@ -112,8 +132,8 @@ const deleteCategory = async ({ listitem, count }) => {
 export {
   getAllProduct,
   addProduct,
-  updateCategory,
-  deleteCategory,
   getProductByCategoryId,
-  getProductBySlug
+  getProductBySlug,
+  updateProduct,
+  deleteProduct
 };

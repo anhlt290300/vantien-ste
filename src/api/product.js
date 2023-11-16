@@ -1,13 +1,14 @@
 import axios from "axios";
 
 const addProduct = async (
-  img,
+  imgs,
   title,
   slug,
   mini_content,
   main_content,
   id_category
 ) => {
+  let img = imgs;
   return axios.post("/api/addproduct", {
     img,
     title,
@@ -38,22 +39,42 @@ const getProductBySlug = async (slug) => {
     })
   ).data;
 };
-// const updateCategory = async (id, img, title, slug, content) => {
-//   return axios.post("/api/updatecategory", {
-//     id,
-//     img,
-//     title,
-//     slug,
-//     content,
-//   });
-// };
 
-// const deleteCategory = async (listItem) => {
-//   console.log(listItem.length);
-//   return axios.post("/api/deletecategory", {
-//     listitem: listItem,
-//     count: listItem.length,
-//   });
-// };
+const updateProduct = async (
+  id,
+  img,
+  title,
+  slug,
+  mini_content,
+  main_content,
+  id_category
+) => {
+  // console.log(id_category);
+  // console.log(img);
+  return axios.post("/api/updateproduct", {
+    id,
+    img,
+    title,
+    slug,
+    mini_content,
+    main_content,
+    id_category,
+  });
+};
 
-export { addProduct, getAllProduct, getProductByCategoryId, getProductBySlug };
+const deleteProduct = async (listItem) => {
+  console.log(listItem);
+  return axios.post("/api/deleteproduct", {
+    listitem: listItem,
+    count: listItem.length,
+  });
+};
+
+export {
+  addProduct,
+  getAllProduct,
+  getProductByCategoryId,
+  getProductBySlug,
+  updateProduct,
+  deleteProduct,
+};

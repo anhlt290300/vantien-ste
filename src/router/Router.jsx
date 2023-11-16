@@ -137,7 +137,7 @@ const router = createBrowserRouter(
           path="san-pham"
           loader={async () => {
             let products = await getAllProduct();
-            //console.log(category)
+            
             return products[0];
           }}
           element={<ProductsAdmin />}

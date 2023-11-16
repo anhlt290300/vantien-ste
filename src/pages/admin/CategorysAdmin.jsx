@@ -21,7 +21,9 @@ const CategorysAdmin = () => {
       let item = await getAllCategory();
       setCategorys(item[0]);
     };
-    getData();
+    if (!add || update === null) {
+      getData();
+    }
   }, [add, update]);
 
   // useEffect(() => console.log(list), [list]);
@@ -41,7 +43,7 @@ const CategorysAdmin = () => {
         } else {
           //console.log("200");
           toast.success(rs.data.message);
-          window.location.reload;
+          window.location.reload();
         }
       }
     }

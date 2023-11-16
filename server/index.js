@@ -11,9 +11,11 @@ import {
 import bodyParser from "body-parser";
 import {
   addProduct,
+  deleteProduct,
   getAllProduct,
   getProductByCategoryId,
-  getProductBySlug
+  getProductBySlug,
+  updateProduct
 } from "./db/product.js";
 
 const app = express();
@@ -112,7 +114,27 @@ app.post("/api/getproductByslug", async (req, res) => {
 
 app.post("/api/addproduct", async (req, res) => {
   //console.log(req.body)
+  //console.log(req.body)
   await addProduct(req.body)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => res.json(error));
+});
+
+app.post("/api/updateproduct", async (req, res) => {
+  //console.log(req.body)
+  //console.log(req.body)
+  await updateProduct(req.body)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => res.json(error));
+});
+
+app.post("/api/deleteproduct", async (req, res) => {
+  //console.log(req.body);
+  await deleteProduct(req.body)
     .then((result) => {
       res.status(200).json(result);
     })
