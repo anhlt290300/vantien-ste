@@ -481,10 +481,65 @@ const AddProduct = ({ setAdd }) => {
             </div>
           </div>
           {maincontent && (
-            <div
-              dangerouslySetInnerHTML={{ __html: maincontent }}
-              className="w-full p-4 content"
-            ></div>
+            <div className="w-full p-4 content text-black-second">
+              <div className="w-full mx-auto">
+                <Swiper
+                  style={{
+                    "--swiper-navigation-color": "#404040",
+                    "--swiper-pagination-color": "#404040",
+                  }}
+                  spaceBetween={10}
+                  navigation={true}
+                  thumbs={{ swiper: thumbsSwiper }}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper2"
+                >
+                  {img.map((item, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <div className="w-full">
+                          {" "}
+                          <img
+                            src={item}
+                            className="max-w-[calc(1/2screen)] h-auto mx-auto"
+                            alt="img"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+                <Swiper
+                  onSwiper={setThumbsSwiper}
+                  spaceBetween={10}
+                  slidesPerView={4}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper"
+                >
+                  {img.map((item, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <div>
+                          {" "}
+                          <img
+                            src={item}
+                            className="w-1/2 h-auto mx-auto"
+                            alt="img"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+              <h1 className="py-5 font-semibold text-3xl">{title}</h1>
+              <div
+                dangerouslySetInnerHTML={{ __html: maincontent }}
+                className="w-full"
+              ></div>
+            </div>
           )}
           <button
             type="submit"
@@ -831,7 +886,7 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
                   })}
                 </Swiper>
               </div>
-              <h3 className="py-8 font-semibold text-3xl">{title}</h3>
+              <h1 className="py-5 font-semibold">{title}</h1>
               <div
                 dangerouslySetInnerHTML={{ __html: maincontent }}
                 className="w-full"

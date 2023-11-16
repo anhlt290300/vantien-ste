@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { convertImgs } from "../utils/convertImgs";
 const ProductCard = ({ item, slug, category, admin }) => {
-  //console.log(item);
+  //console.log(item)
   return (
     <div className=" border border-gray-primary tablet:grid grid-cols-11 p-4 tablet:gap-6 gap-3 min-h-[15rem] h-full">
       {!admin && (
@@ -15,7 +15,7 @@ const ProductCard = ({ item, slug, category, admin }) => {
           className="col-span-5 flex items-center"
         >
           <img
-            src={category ? item.img : item.img}
+            src={category ? item.img : convertImgs(item.img)[0]}
             className=" w-full tablet:h-full"
             alt=""
           />

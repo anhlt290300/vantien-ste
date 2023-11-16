@@ -67,7 +67,7 @@ const router = createBrowserRouter(
               //console.log(category[0])
               if (category.length > 0) {
                 let products = await getProductByCategoryId(category[0].id);
-                //console.log(products)
+                console.log(products)
                 return {
                   title: category[0].title,
                   slug: category[0].slug,

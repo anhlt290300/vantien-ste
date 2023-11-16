@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Helmet from "../components/Helmet";
 import BreadCrumb from "../components/BreadCrumb";
 import { useLoaderData } from "react-router-dom";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { convertImgs } from "../utils/convertImgs";
 
 const Products = () => {
   const { category_slug, category_title, product } = useLoaderData();
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   //console.log(useLoaderData())
   return (
     <section>
@@ -18,8 +27,62 @@ const Products = () => {
           ]}
         />
         <section>
-          <div className="w-full tablet:py-4 py-2 desktop-L:px-32 desktop:px-16 tablet:px-8 px-4 product-content">
-            <div className="content" dangerouslySetInnerHTML={{ __html: `${product.main_content}` }} />
+          <div className="w-full tablet:py-4 py-2 desktop-L:px-32 desktop:px-16 tablet:px-8 px-4 product-content content">
+            <Swiper
+              style={{
+                "--swiper-navigation-color": "#404040",
+                "--swiper-pagination-color": "#404040",
+              }}
+              spaceBetween={10}
+              navigation={true}
+              thumbs={{ swiper: thumbsSwiper }}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="mySwiper2"
+            >
+              {convertImgs(product.img).map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="w-full">
+                      {" "}
+                      <img
+                        src={item}
+                        className="max-w-[calc(1/2screen)] h-auto mx-auto"
+                        alt="img"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="mySwiper"
+            >
+              {convertImgs(product.img).map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div>
+                      {" "}
+                      <img
+                        src={item}
+                        className="w-1/2 h-auto mx-auto"
+                        alt="img"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+            <h1 className="py-8 font-semibold ">{product.title}</h1>
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: `${product.main_content}` }}
+            />
           </div>
         </section>
       </Helmet>

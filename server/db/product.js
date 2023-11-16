@@ -23,7 +23,7 @@ const getAllProduct = async () => {
 const getProductByCategoryId = async (id_category) => {
   // console.log(id_category)
   let sql =
-    "SELECT product.title,product.slug,product.id,product.img,product.mini_content,product.main_content,category.title FROM `product` INNER JOIN `category` ON product.id_category = category.id AND category.id = ?";
+    "SELECT product.title,product.slug,product.id,product.img,product.mini_content,product.main_content FROM `product` INNER JOIN `category` ON product.id_category = category.id AND category.id = ?";
   const [rows] = await db.promise().query(sql, [id_category]);
   return [rows][0];
 };
