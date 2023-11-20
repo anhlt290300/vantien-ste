@@ -28,8 +28,13 @@ import NewsAdmin from "../pages/admin/NewsAdmin";
 import RecruitAdmin from "../pages/admin/RecruitAdmin";
 import CategorysAdmin from "../pages/admin/CategorysAdmin";
 import { getAllCategory, getCategoryBySlug } from "../api/category";
-import { getAllProduct, getProductByCategoryId, getProductBySlug } from "../api/product";
-
+import {
+  getAllProduct,
+  getProductByCategoryId,
+  getProductBySlug,
+} from "../api/product";
+import { getAllNews } from "../api/news";
+import { getAllRecruit } from "../api/recruit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,7 +72,7 @@ const router = createBrowserRouter(
               //console.log(category[0])
               if (category.length > 0) {
                 let products = await getProductByCategoryId(category[0].id);
-                console.log(products)
+                console.log(products);
                 return {
                   title: category[0].title,
                   slug: category[0].slug,
@@ -137,7 +142,7 @@ const router = createBrowserRouter(
           path="san-pham"
           loader={async () => {
             let products = await getAllProduct();
-            
+
             return products[0];
           }}
           element={<ProductsAdmin />}
@@ -155,11 +160,21 @@ const router = createBrowserRouter(
         />
         <Route
           path="tin-tuc-va-su-kien"
+          loader={async () => {
+            let news = await getAllNews();
+
+            return news[0];
+          }}
           element={<NewsAdmin />}
           errorElement={<Page404 />}
         />
         <Route
           path="tuyen-dung"
+          loader={async () => {
+            let recruit = await getAllRecruit();
+
+            return recruit[0];
+          }}
           element={<RecruitAdmin />}
           errorElement={<Page404 />}
         />
