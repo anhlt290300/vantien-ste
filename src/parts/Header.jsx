@@ -36,29 +36,29 @@ const Header = () => {
 
   return (
     <header className="w-screen h-fit desktop:block hidden">
-      <div className=" w-full py-4 flex justify-between items-center text-black-primary">
+      <div className=" w-full py-4 flex justify-between items-center text-black-primary bg-yellow-second">
         <div className="w-fit h-fit px-8">
           <a href="/">
             <img src={logo} alt="logo" className="h-14" />
           </a>
         </div>
-        <div className="  px-8 border-b border-gray-primary w-full flex justify-end ">
+        <div className="  px-8 border-b border-red-primary w-full flex justify-end ">
           <div className="grid grid-cols-3 text-sm">
             <div
-              className="px-6 py-4 text-center relative flex items-center justify-center
-          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-gray-primary hover:after:h-1"
+              className=" font-semibold px-6 py-4 text-center relative flex items-center justify-center
+          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-red-primary hover:after:h-1"
             >
               <a href="/tin-tuc-va-su-kien">Tin tức và Sự kiện</a>
             </div>
             <div
-              className="px-6 py-4 text-center relative flex items-center justify-center
-          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-gray-primary hover:after:h-1"
+              className=" font-semibold px-6 py-4 text-center relative flex items-center justify-center
+          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-red-primary hover:after:h-1"
             >
               <a href="/tuyen-dung">Cơ hội việc làm</a>
             </div>
             <div
-              className="px-6 py-4 text-center relative flex justify-center items-center cursor-pointer
-          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-gray-primary hover:after:h-1"
+              className="font-semibold px-6 py-4 text-center relative flex justify-center items-center cursor-pointer
+          after:transition-all after:duration-200 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-red-primary hover:after:h-1"
             >
               <img src={vietnam} alt="" className="w-8 mr-2" />
               <span>Việt Nam</span>
@@ -69,8 +69,8 @@ const Header = () => {
       <div
         className={
           active
-            ? "flex desktop-L:justify-center items-center fixed bottom-full translate-y-full left-0 w-screen border-b-4 border-black-primary bg-white-primary transition-all duration-300 ease-in-out z-[9999]"
-            : "flex desktop-L:justify-center desktop:justify-start items-center relative w-full border-b-4 border-black-primary"
+            ? " bg-yellow-second flex desktop-L:justify-center items-center fixed bottom-full translate-y-full left-0 w-screen border-b-4 border-black-primary  transition-all duration-300 ease-in-out z-[9999]"
+            : "bg-yellow-second flex desktop-L:justify-center desktop:justify-start items-center relative w-full border-b-4 border-black-primary"
         }
       >
         <div className="grid grid-cols-4 desktop-L:gap-8 gap-4">
@@ -79,7 +79,7 @@ const Header = () => {
               <div
                 key={index}
                 className=" text-2xl font-semibold text-center flex items-center justify-center group/nav relative
-            after:transition-all after:duration-300 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-yellow-primary hover:after:h-1"
+            after:transition-all after:duration-300 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-red-primary hover:after:h-1"
               >
                 <a
                   href={item.href}

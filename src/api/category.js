@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const addCategory = async (img, title, slug, content) => {
-  return axios.post("/api/addcategory", {
-    img,
-    title,
-    slug,
-    content,
-  });
+  const formData = new FormData();
+  formData.append("file", img);
+  formData.append("title", title);
+  formData.append("slug", slug);
+  formData.append("content", content);
+  return axios.post("/api/addcategory", formData);
 };
 
 const getAllCategory = async () => {
@@ -21,14 +21,24 @@ const getCategoryBySlug = async (slug) => {
   ).data;
 };
 
-const updateCategory = async (id, img, title, slug, content) => {
-  return axios.post("/api/updatecategory", {
-    id,
-    img,
-    title,
-    slug,
-    content,
-  });
+const updateCategory = async (id, img, title, slug, content, changeImg) => {
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("title", title);
+  formData.append("slug", slug);
+  formData.append("content", content);
+  formData.append("file", img);
+  console.log(id)
+  if (changeImg) {
+    return axios.post("/api/updatecategoryChangeimg", formData);
+  } else {
+    return axios.post("/api/updatecategoryNotchangeimg", {
+      id,
+      title,
+      slug,
+      content,
+    });
+  }
 };
 
 const deleteCategory = async (listItem) => {
@@ -39,4 +49,10 @@ const deleteCategory = async (listItem) => {
   });
 };
 
-export { addCategory, getAllCategory, updateCategory, deleteCategory ,getCategoryBySlug};
+export {
+  addCategory,
+  getAllCategory,
+  updateCategory,
+  deleteCategory,
+  getCategoryBySlug,
+};

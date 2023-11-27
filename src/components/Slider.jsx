@@ -19,10 +19,10 @@ const Slider = () => {
         effect={"fade"}
         loop={true}
         centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
         pagination={{
           clickable: true,
         }}
@@ -33,13 +33,14 @@ const Slider = () => {
           swiperRef.current = swiper;
         }}
         modules={[EffectFade, Autoplay, Pagination]}
+        className="swiper"
       >
         {imgs.map((item, index) => {
           return (
             <SwiperSlide key={index}>
               <a href={item.href}>
                 {" "}
-                <img src={item} className="w-screen tablet:h-[40vw] h-[75vw]" alt="img" />
+                <img src={item} className="w-screen tablet:h-[40vw] h-[300px]" alt="img" />
               </a>
             </SwiperSlide>
           );

@@ -17,7 +17,7 @@ const HeaderBurger = () => {
 
   return (
     <header className="w-screen  desktop:hidden block  h-14 ">
-      <div className=" fixed top-0 left-0 z-[99999] w-full h-14 flex justify-between items-center text-black-primary bg-white border-b-4 border-y-black-primary">
+      <div className=" fixed top-0 left-0 z-[99999] w-full h-14 flex justify-between items-center text-black-primary bg-yellow-second border-b-4 border-y-black-primary">
         <div className="  h-full mobile-L:px-8 px-4 py-2 flex items-center justify-center">
           <a href="/">
             <img src={logo} alt="logo" className="h-8 min-w-[10rem]" />
@@ -32,8 +32,8 @@ const HeaderBurger = () => {
             }}
             className={
               openSear
-                ? "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer bg-yellow-second"
-                : "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer"
+                ? "flex items-center justify-center h-full w-14 border-l-2 border-red-primary cursor-pointer bg-yellow-primary"
+                : "flex items-center justify-center h-full w-14 border-l-2 border-red-primary cursor-pointer"
             }
           >
             {openSear ? <AiOutlineClose size={25} /> : <BiSearch size={25} />}
@@ -45,8 +45,8 @@ const HeaderBurger = () => {
             }}
             className={
               openNav
-                ? "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer bg-yellow-second"
-                : "flex items-center justify-center h-full w-14 border-l border-gray-primary cursor-pointer"
+                ? "flex items-center justify-center h-full w-14 border-l-2 border-red-primary cursor-pointer bg-yellow-primary"
+                : "flex items-center justify-center h-full w-14 border-l-2 border-red-primary cursor-pointer"
             }
           >
             {openNav ? (
@@ -61,8 +61,8 @@ const HeaderBurger = () => {
         <div
           className={
             indexItem
-              ? "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav active overflow-y-scroll"
-              : "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-white text-black-second group/nav overflow-y-scroll"
+              ? "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-yellow-primary text-black-second group/nav active overflow-y-scroll"
+              : "fixed top-14 left-0 z-[99999] w-full h-[calc(100vh-3.5rem)]  bg-yellow-primary text-black-second group/nav overflow-y-scroll"
           }
         >
           <div className="w-full grid grid-cols-1">
@@ -70,7 +70,7 @@ const HeaderBurger = () => {
               return (
                 <div
                   key={index}
-                  className="px-8 py-4 font-semibold text-xl border-b border-gray-primary flex items-center justify-between"
+                  className="px-8 py-4 font-semibold text-xl border-b border-red-primary flex items-center justify-between"
                 >
                   <a href={item.href} className="w-full">
                     {item.title}
@@ -84,17 +84,17 @@ const HeaderBurger = () => {
                 </div>
               );
             })}
-            <div className="px-8 py-4  text-xl border-b border-gray-primary flex items-center justify-between">
+            <div className="px-8 py-4  text-xl border-b border-red-primary flex items-center justify-between">
               <a href="/tin-tuc-va-su-kien" className="w-full">
                 Tin tức và Sự kiện
               </a>
             </div>
-            <div className="px-8 py-4  text-xl border-b border-gray-primary flex items-center justify-between">
+            <div className="px-8 py-4  text-xl border-b border-red-primary flex items-center justify-between">
               <a href="/co-hoi-viec-lam" className="w-full">
                 Cơ hội việc làm
               </a>
             </div>
-            <div className="px-8 py-4  text-xl flex items-center justify-between bg-gray-primary cursor-pointer">
+            <div className="px-8 py-4  text-xl flex items-center justify-between bg-yellow-primary cursor-pointer">
               <div className="flex items-center">
                 <img src={vietnam} alt="" className="w-10 mr-2" />
                 <span>Thay đổi ngôn ngữ</span>
@@ -103,11 +103,11 @@ const HeaderBurger = () => {
             </div>
           </div>
           {indexItem && (
-            <div className="w-full  fixed top-14 left-full z-[999999] group-[.active]/nav:-translate-x-full transition-all duration-300 ease-in-out bg-white max-h-screen h-[calc(100vh-3.5rem)] overflow-y-scroll">
+            <div className="w-full  fixed top-14 left-full z-[999999] group-[.active]/nav:-translate-x-full transition-all duration-300 ease-in-out bg-yellow-primary max-h-screen h-[calc(100vh-3.5rem)] overflow-y-scroll">
               <div className="grid grid-cols-1 ">
                 <div
                   onClick={() => setIndexItem(null)}
-                  className="px-8 py-4 font-semibold text-xl border-b border-gray-primary flex items-center justify-start relative bg-gray-primary"
+                  className="px-8 py-4 font-semibold text-xl border-b border-red-primary flex items-center justify-start relative bg-yellow-primary"
                 >
                   <IoIosArrowDown className=" rotate-90 absolute left-2" />
                   <p>{nav[indexItem].title}</p>
@@ -116,7 +116,7 @@ const HeaderBurger = () => {
                   return (
                     <div
                       key={index}
-                      className="pl-10 pr-4 py-2 text-xl border-b border-gray-primary flex items-center justify-start relative"
+                      className="pl-10 pr-4 py-2 text-xl border-b border-red-primary flex items-center justify-start relative"
                     >
                       <a href={`/danh-muc/${item.slug}`}>{item.title}</a>
                     </div>

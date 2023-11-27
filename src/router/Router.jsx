@@ -22,6 +22,7 @@ import Header from "../parts/Header";
 import Footer from "../parts/Footer";
 import HeaderBurger from "../parts/HeaderBurger";
 import Categorys from "../pages/Categorys";
+import New from "../pages/New";
 
 import ProductsAdmin from "../pages/admin/ProductsAdmin";
 import NewsAdmin from "../pages/admin/NewsAdmin";
@@ -33,8 +34,8 @@ import {
   getProductByCategoryId,
   getProductBySlug,
 } from "../api/product";
-import { getAllNews } from "../api/news";
-import { getAllRecruit } from "../api/recruit";
+import { getAllNews, getNewsBySlug } from "../api/news";
+import { getAllRecruit, getRecruitBySlug } from "../api/recruit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -118,7 +119,30 @@ const router = createBrowserRouter(
         />
         <Route
           path="/tuyen-dung"
+          loader={async () => {
+            let news = await getAllRecruit();
+
+            return news[0];
+          }}
           element={<Recruit />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/tuyen-dung/:recruit_slug"
+          loader={async ({ params }) => {
+            let recruit_slug = params.recruit_slug;
+
+            let recruit = await getRecruitBySlug(recruit_slug);
+            //console.log(recruit[0])
+            if (recruit) {
+              return {
+                recruit_slug: recruit_slug,
+                recruit: recruit[0],
+              };
+            }
+            throw new Response("Can't find product", { status: 400 });
+          }}
+          element={<New />}
           errorElement={<Page404 />}
         />
         <Route
@@ -128,7 +152,30 @@ const router = createBrowserRouter(
         />
         <Route
           path="/tin-tuc-va-su-kien"
+          loader={async () => {
+            let news = await getAllNews();
+
+            return news[0];
+          }}
           element={<News />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          path="/tin-tuc-va-su-kien/:news_slug"
+          loader={async ({ params }) => {
+            let news_slug = params.news_slug;
+
+            let news = await getNewsBySlug(news_slug);
+            //console.log(product)
+            if (news) {
+              return {
+                news_slug: news_slug,
+                news: news[0],
+              };
+            }
+            throw new Response("Can't find product", { status: 400 });
+          }}
+          element={<New />}
           errorElement={<Page404 />}
         />
       </Route>

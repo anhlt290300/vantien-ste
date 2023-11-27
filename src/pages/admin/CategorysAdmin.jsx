@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { AiOutlineTool, AiOutlinePlus } from "react-icons/ai";
 import { IoReturnUpBackOutline } from "react-icons/io5";
@@ -16,6 +16,7 @@ const CategorysAdmin = () => {
   const [update, setUpdate] = useState(null);
   const [add, setAdd] = useState(false);
   const [list, setList] = useState([]);
+
   useEffect(() => {
     const getData = async () => {
       let item = await getAllCategory();
@@ -154,7 +155,7 @@ const CategorysAdmin = () => {
 };
 
 const AddCategory = ({ setAdd }) => {
-  const [img, setImg] = useState("");
+  const imgRef = useRef();
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [content, setContent] = useState("");
@@ -162,7 +163,7 @@ const AddCategory = ({ setAdd }) => {
   const [errTitle, setErrTitle] = useState(false);
   const [errSlug, setErrSlug] = useState(false);
   const [errContent, setErrContent] = useState(false);
-
+  const [img, setImg] = useState("");
   const handleAdd = async (e) => {
     e.preventDefault();
     if (img === "") {
@@ -213,17 +214,17 @@ const AddCategory = ({ setAdd }) => {
         <div className="w-full flex flex-col gap-4">
           {/* img */}
           <div className="">
-            <p className="text-lg font-semibold">
-              Hình ảnh (nhập đường dẫn url)
-            </p>
+            <p className="text-lg font-semibold">Hình ảnh</p>
             <div className="w-full relative  mt-2">
               <input
-                value={img}
+                ref={imgRef}
                 onChange={(e) => {
                   if (errImg) setErrImg(false);
-                  setImg(e.target.value);
+                  setImg(e.target.files[0]);
+                  //console.log(e.target.files[0])
                 }}
-                type="text"
+                type="file"
+                accept="image/*"
                 className={
                   errImg
                     ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-16"
@@ -232,7 +233,7 @@ const AddCategory = ({ setAdd }) => {
               />
               <HiOutlineTrash
                 size={20}
-                onClick={() => setImg("")}
+                onClick={() => (imgRef.current.value = "")}
                 className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
               />
             </div>
@@ -242,7 +243,7 @@ const AddCategory = ({ setAdd }) => {
               </p>
             )}
             <img
-              src={img}
+              src={img !== "" ? URL.createObjectURL(img) : null}
               alt="Hình ảnh danh mục"
               className=" mt-4 w-fit h-fit border border-black-primary p-4"
             />
@@ -348,6 +349,7 @@ const AddCategory = ({ setAdd }) => {
 };
 
 const UpdateCategory = ({ item, setUpdate }) => {
+  const img_ = item.img;
   const [img, setImg] = useState(item?.img);
   const [title, setTitle] = useState(item.title);
   const [slug, setSlug] = useState(item.slug);
@@ -356,7 +358,7 @@ const UpdateCategory = ({ item, setUpdate }) => {
   const [errTitle, setErrTitle] = useState(false);
   const [errSlug, setErrSlug] = useState(false);
   const [errContent, setErrContent] = useState(false);
-
+  const imgRef = useRef(null);
   const handleUpdate = async (e) => {
     e.preventDefault();
     if (img === "") {
@@ -380,13 +382,40 @@ const UpdateCategory = ({ item, setUpdate }) => {
       return null;
     }
 
-    let rs = await updateCategory(item.id, img, title, slug, content);
-    if (rs.data.code === 500) {
-      //console.log("500");
-      toast.error(rs.data.message);
+    if (img !== img_) {
+      let changeImg = true;
+      let rs = await updateCategory(
+        item.id,
+        img,
+        title,
+        slug,
+        content,
+        changeImg
+      );
+      if (rs.data.code === 500) {
+        //console.log("500");
+        toast.error(rs.data.message);
+      } else {
+        //console.log("200");
+        toast.success(rs.data.message);
+      }
     } else {
-      //console.log("200");
-      toast.success(rs.data.message);
+      let changeImg = false;
+      let rs = await updateCategory(
+        item.id,
+        img,
+        title,
+        slug,
+        content,
+        changeImg
+      );
+      if (rs.data.code === 500) {
+        //console.log("500");
+        toast.error(rs.data.message);
+      } else {
+        //console.log("200");
+        toast.success(rs.data.message);
+      }
     }
   };
 
@@ -411,16 +440,18 @@ const UpdateCategory = ({ item, setUpdate }) => {
           {/* img */}
           <div className="">
             <p className="text-lg font-semibold">
-              Hình ảnh (nhập đường dẫn url)
+              Hình ảnh (chọn ảnh mới để cập nhập hoặc giữ nguyên)
             </p>
             <div className="w-full relative  mt-2">
               <input
-                value={img}
+                ref={imgRef}
                 onChange={(e) => {
                   if (errImg) setErrImg(false);
-                  setImg(e.target.value);
+                  setImg(e.target.files[0]);
+                  //console.log(e.target.files[0])
                 }}
-                type="text"
+                type="file"
+                accept="image/*"
                 className={
                   errImg
                     ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-16"
@@ -429,7 +460,7 @@ const UpdateCategory = ({ item, setUpdate }) => {
               />
               <HiOutlineTrash
                 size={20}
-                onClick={() => setImg("")}
+                onClick={() => (imgRef.current.value = "")}
                 className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
               />
             </div>
@@ -439,7 +470,7 @@ const UpdateCategory = ({ item, setUpdate }) => {
               </p>
             )}
             <img
-              src={img}
+              src={img !== img_ ? URL.createObjectURL(img) : img}
               alt="Hình ảnh danh mục"
               className=" mt-4 w-fit h-fit border border-black-primary p-4"
             />

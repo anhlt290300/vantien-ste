@@ -196,12 +196,8 @@ const AddProduct = ({ setAdd }) => {
   // };
   const [category, setCategory] = useState([]);
 
-  const [img, setImg] = useState([
-    {
-      index: 1,
-      src: "",
-    },
-  ]);
+  const [img, setImg] = useState("");
+  const [imgs, setImgs] = useState("");
   const [title, setTitle] = useState("");
 
   const [categoryId, setCategoryId] = useState("");
@@ -215,6 +211,9 @@ const AddProduct = ({ setAdd }) => {
   const [errMainContent, setErrMainContent] = useState(false);
 
   const editor = useRef(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const imgRef = useRef(null);
 
   useEffect(() => {
     const getCategory = async () => {
@@ -228,7 +227,7 @@ const AddProduct = ({ setAdd }) => {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!img.find((el) => el.src !== "")) {
+    if (img === "") {
       setErrImg(true);
       toast.error("Hình ảnh không được để trống");
       return null;
@@ -250,8 +249,9 @@ const AddProduct = ({ setAdd }) => {
       return null;
     }
     let slug = convertSlug(title);
-    let imgs = img.map((el) => el.src);
+    let fileimg = img;
     let rs = await addProduct(
+      fileimg,
       imgs,
       title,
       slug,
@@ -282,96 +282,62 @@ const AddProduct = ({ setAdd }) => {
         action="/quan-tri-vien/san-pham"
         onSubmit={(e) => handleAdd(e)}
         className="w-[calc(100%)] h-full overflow-y-scroll no-scrollbar"
+        encType="multipart/form-data"
       >
         <div className="w-full flex flex-col gap-4">
           {/* img */}
           <div className="">
-            <p className="text-lg font-semibold flex items-center">
-              Hình ảnh (nhập đường dẫn url){" "}
-              <span
-                onClick={() => {
-                  if (img.length < 12) {
-                    setImg([
-                      ...img,
-                      {
-                        index: img[img.length - 1].index + 1,
-                        src: "",
-                      },
-                    ]);
-                  } else toast.error("Tối đa 12 ảnh");
+            <p className="text-lg font-semibold flex items-center">Hình ảnh </p>
+            <div className="w-full relative">
+              <input
+                ref={imgRef}
+                onChange={(e) => {
+                  if (errImg) setErrImg(false);
+                  let arr = [];
+                  Array.prototype.forEach.call(e.target.files, (file) => {
+                    arr.push(file);
+                  });
+                  setImgs(arr);
+                  setImg(e.target.files);
                 }}
-                className=" cursor-pointer ml-4 flex py-2 px-5 bg-black-primary text-white-primary"
-              >
-                <AiOutlinePlus />
-              </span>
-            </p>
-            <div className="w-full first:mt-2 ">
-              {img.map((item, index) => {
-                return (
-                  <div key={index} className="w-full relative mt-4">
-                    <input
-                      value={item.src}
-                      onChange={(e) => {
-                        if (errImg) setErrImg(false);
-                        let arr = img.map((el) => {
-                          if (item.index === el.index) el.src = e.target.value;
-                          return el;
-                        });
-                        setImg(arr);
-                      }}
-                      placeholder={`Nhập link ảnh ...`}
-                      type="text"
-                      className={
-                        errImg
-                          ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-20"
-                          : "w-full border border-black-primary rounded-md outline-blue-600 p-2 pr-20"
-                      }
-                    />
-                    <HiOutlineTrash
-                      size={20}
-                      onClick={() => {
-                        let arr = img.map((el) => {
-                          if (item.index === el.index) el.src = "";
-                          return el;
-                        });
-                        setImg(arr);
-                      }}
-                      className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                    />
-                    <IoRemove
-                      size={20}
-                      onClick={() => {
-                        let arr = img.filter((el) => el.index !== item.index);
-                        setImg(arr);
-                      }}
-                      className={
-                        index === 0
-                          ? "hidden absolute right-10 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                          : " absolute right-10 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                      }
-                    />
-                  </div>
-                );
-              })}
+                accept="image/*"
+                type="file"
+                multiple={true}
+                className={
+                  errImg
+                    ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-20"
+                    : "w-full border border-black-primary rounded-md outline-blue-600 p-2 pr-20"
+                }
+              />
+              <HiOutlineTrash
+                size={20}
+                onClick={() => {
+                  setImg("");
+                  imgRef.current.value = "";
+                }}
+                className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
+              />
             </div>
             {errImg && (
               <p className=" text-red-primary font-semibold">
                 ! Không để trống
               </p>
             )}
-            <div className={`grid grid-cols-12 gap-2 h-16 my-4`}>
-              {img.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <img
-                      className="max-w-full h-16 col-span-1 block"
-                      src={item.src}
-                      alt={`Ảnh thứ ${index + 1}`}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            {imgs !== "" && (
+              <div className={`grid grid-cols-12 gap-2 h-16 my-4`}>
+                {imgs.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <img
+                        className="max-w-full h-16 col-span-1 block"
+                        src={URL.createObjectURL(item)}
+                        alt={`Ảnh thứ ${index + 1}`}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           {/* title */}
           <div className="">
@@ -380,7 +346,7 @@ const AddProduct = ({ setAdd }) => {
               <input
                 value={title}
                 onChange={(e) => {
-                  console.log(convertSlug(title));
+                  //console.log(convertSlug(title));
                   if (errTitle) setErrTitle(false);
                   setTitle(e.target.value);
                 }}
@@ -494,14 +460,14 @@ const AddProduct = ({ setAdd }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper2"
                 >
-                  {img.map((item, index) => {
+                  {imgs.map((item, index) => {
                     return (
                       <SwiperSlide key={index}>
-                        <div className="w-full">
+                        <div className="w-full h-full">
                           {" "}
                           <img
-                            src={item}
-                            className="max-w-[calc(1/2screen)] h-auto mx-auto"
+                            src={URL.createObjectURL(item)}
+                            className="aspect-square h-full mx-auto"
                             alt="img"
                           />
                         </div>
@@ -518,14 +484,14 @@ const AddProduct = ({ setAdd }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper"
                 >
-                  {img.map((item, index) => {
+                  {imgs.map((item, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <div>
                           {" "}
                           <img
-                            src={item}
-                            className="w-1/2 h-auto mx-auto"
+                            src={URL.createObjectURL(item)}
+                            className="aspect-square h-full mx-auto"
                             alt="img"
                           />
                         </div>
@@ -554,11 +520,13 @@ const AddProduct = ({ setAdd }) => {
 };
 
 const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
+  const imgRef = useRef(null);
   const [category, setCategory] = useState([]);
   //console.log(item.id);
-  const [img, setImg] = useState([...convertImgs(item.img)]);
+  const [isChange, setIsChange] = useState(false);
+  const [img, setImg] = useState(item.img);
+  const [imgs, setImgs] = useState(convertImgs(item.img));
   const [title, setTitle] = useState(item.title);
-
   const [categoryId, setCategoryId] = useState(item.id_category);
   const [minicontent, setMinicontent] = useState(item.mini_content);
   const [maincontent, setMaincontent] = useState(item.main_content);
@@ -585,7 +553,7 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (img.filter((el) => el !== "").length !== img.length) {
+    if (isChange && img === "") {
       setErrImg(true);
       toast.error("Hình ảnh không được để trống");
       return null;
@@ -608,15 +576,20 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
     }
     let slug = convertSlug(title);
     let id = item.id;
+    let change = isChange;
+    let mini_content = minicontent;
+    let main_content = maincontent;
     let rs = await updateProduct(
       id,
       img,
       title,
       slug,
-      minicontent,
-      maincontent,
-      categoryId
+      mini_content,
+      main_content,
+      categoryId,
+      change
     );
+
     if (rs.data.code === 500) {
       toast.error(rs.data.message);
     } else {
@@ -644,68 +617,39 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
         <div className="w-full flex flex-col gap-4">
           {/* img */}
           <div className="">
-            <p className="text-lg font-semibold flex items-center">
-              Hình ảnh (nhập đường dẫn url){" "}
-              <span
-                onClick={() => {
-                  if (img.length < 12) {
-                    setImg([...img, ""]);
-                  } else toast.error("Tối đa 12 ảnh");
+            <p className="text-lg font-semibold flex items-center">Hình ảnh </p>
+            <div className="w-full relative">
+              <input
+                ref={imgRef}
+                onChange={(e) => {
+                  if (errImg) setErrImg(false);
+                  let arr = [];
+                  Array.prototype.forEach.call(e.target.files, (file) => {
+                    arr.push(file);
+                  });
+                  //console.log(arr);
+                  setImgs(arr);
+                  setImg(e.target.files);
+                  setIsChange(true);
                 }}
-                className=" cursor-pointer ml-4 flex py-2 px-5 bg-black-primary text-white-primary"
-              >
-                <AiOutlinePlus />
-              </span>
-            </p>
-            <div className="w-full first:mt-2 ">
-              {img.map((item, index) => {
-                return (
-                  <div key={index} className="w-full relative mt-4">
-                    <input
-                      value={item}
-                      onChange={(e) => {
-                        if (errImg) setErrImg(false);
-                        let arr = img.map((el, index2) => {
-                          if (index === index2) el = e.target.value;
-                          return el;
-                        });
-                        setImg(arr);
-                      }}
-                      placeholder={`Nhập link ảnh ...`}
-                      type="text"
-                      className={
-                        errImg && item === ""
-                          ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-20"
-                          : "w-full border border-black-primary rounded-md outline-blue-600 p-2 pr-20"
-                      }
-                    />
-                    <HiOutlineTrash
-                      size={20}
-                      onClick={() => {
-                        let arr = img.map((el, index2) => {
-                          if (index === index2) el = "";
-                          return el;
-                        });
-                        setImg(arr);
-                      }}
-                      className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                    />
-                    <IoRemove
-                      size={20}
-                      onClick={() => {
-                        let arr = img.filter((el, index2) => index !== index2);
-                        setImg(arr);
-                        setErrImg(false);
-                      }}
-                      className={
-                        index === 0
-                          ? "hidden absolute right-10 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                          : " absolute right-10 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
-                      }
-                    />
-                  </div>
-                );
-              })}
+                accept="image/*"
+                type="file"
+                multiple={true}
+                className={
+                  errImg
+                    ? "w-full border border-red-primary rounded-md outline-red-primary p-2 pr-20"
+                    : "w-full border border-black-primary rounded-md outline-blue-600 p-2 pr-20"
+                }
+              />
+              <HiOutlineTrash
+                size={20}
+                onClick={() => {
+                  setImg("");
+                  setImgs([]);
+                  imgRef.current.value = "";
+                }}
+                className=" absolute right-4 top-1/2 -translate-y-1/2 h-full hover:text-red-primary cursor-pointer"
+              />
             </div>
             {errImg && (
               <p className=" text-red-primary font-semibold">
@@ -713,12 +657,12 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
               </p>
             )}
             <div className={`grid grid-cols-12 gap-2 h-16 my-4`}>
-              {img.map((item, index) => {
+              {imgs.map((item, index) => {
                 return (
                   <div key={index}>
                     <img
-                      className="max-w-full h-16 col-span-1 block"
-                      src={item}
+                      className="max-w-full h-16 col-span-1 block aspect-square"
+                      src={isChange ? URL.createObjectURL(item) : item}
                       alt={`Ảnh thứ ${index + 1}`}
                     />
                   </div>
@@ -733,7 +677,7 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
               <input
                 value={title}
                 onChange={(e) => {
-                  console.log(convertSlug(title));
+                  //console.log(convertSlug(title));
                   if (errTitle) setErrTitle(false);
                   setTitle(e.target.value);
                 }}
@@ -846,14 +790,14 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper2"
                 >
-                  {img.map((item, index) => {
+                  {imgs.map((item, index) => {
                     return (
                       <SwiperSlide key={index}>
-                        <div className="w-full">
+                        <div className="w-full h-full">
                           {" "}
                           <img
-                            src={item}
-                            className="max-w-[calc(1/2screen)] h-auto mx-auto"
+                            src={isChange ? URL.createObjectURL(item) : item}
+                            className="aspect-square h-full mx-auto"
                             alt="img"
                           />
                         </div>
@@ -870,14 +814,14 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper"
                 >
-                  {img.map((item, index) => {
+                  {imgs.map((item, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <div>
                           {" "}
                           <img
-                            src={item}
-                            className="w-1/2 h-auto mx-auto"
+                            src={isChange ? URL.createObjectURL(item) : item}
+                            className="aspect-square h-full mx-auto"
                             alt="img"
                           />
                         </div>
@@ -886,7 +830,7 @@ const UpdateProduct = ({ setUpdate, item, categorySlug }) => {
                   })}
                 </Swiper>
               </div>
-              <h1 className="py-5 font-semibold">{title}</h1>
+              <h1 className="py-5 font-semibold text-3xl">{title}</h1>
               <div
                 dangerouslySetInnerHTML={{ __html: maincontent }}
                 className="w-full"

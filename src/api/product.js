@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const addProduct = async (
+  fileimg,
   imgs,
   title,
   slug,
@@ -8,15 +9,16 @@ const addProduct = async (
   main_content,
   id_category
 ) => {
-  let img = imgs;
-  return axios.post("/api/addproduct", {
-    img,
-    title,
-    slug,
-    mini_content,
-    main_content,
-    id_category,
-  });
+  const formData = new FormData();
+  for (const file of fileimg) {
+    formData.append("imgs", file);
+  }
+  formData.append("title", title);
+  formData.append("slug", slug);
+  formData.append("mini_content", mini_content);
+  formData.append("main_content", main_content);
+  formData.append("id_category", id_category);
+  return axios.post("/api/addproduct", formData);
 };
 
 const getAllProduct = async () => {
@@ -47,19 +49,31 @@ const updateProduct = async (
   slug,
   mini_content,
   main_content,
-  id_category
+  id_category,
+  change
 ) => {
-  // console.log(id_category);
-  // console.log(img);
-  return axios.post("/api/updateproduct", {
-    id,
-    img,
-    title,
-    slug,
-    mini_content,
-    main_content,
-    id_category,
-  });
+  // console.log(id);
+  if (change) {
+    const formData = new FormData();
+    for (const file of img) {
+      formData.append("imgs", file);
+    }
+    formData.append("id", id);
+    formData.append("title", title);
+    formData.append("slug", slug);
+    formData.append("mini_content", mini_content);
+    formData.append("main_content", main_content);
+    formData.append("id_category", id_category);
+    return axios.post("/api/updateproductChangeimg", formData);
+  } else
+    return axios.post("/api/updateproductNotchangeimg", {
+      id,
+      title,
+      slug,
+      mini_content,
+      main_content,
+      id_category,
+    });
 };
 
 const deleteProduct = async (listItem) => {
